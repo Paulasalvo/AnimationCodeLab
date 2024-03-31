@@ -103,6 +103,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.namkuzo.animationcodelab.R
 import com.namkuzo.animationcodelab.ui.theme.Amber600
+import com.namkuzo.animationcodelab.ui.theme.AnimationCodelabTheme
 import com.namkuzo.animationcodelab.ui.theme.Green
 import com.namkuzo.animationcodelab.ui.theme.GreenLight
 import com.namkuzo.animationcodelab.ui.theme.PaleDogwood
@@ -656,7 +657,7 @@ private fun Modifier.swipeToDismiss(
 @Preview
 @Composable
 private fun PreviewHomeTabBar() {
-    MaterialTheme {
+    AnimationCodelabTheme {
         HomeTabBar(
             backgroundColor = White,
             tabPage = TabPage.Home,
@@ -668,7 +669,7 @@ private fun PreviewHomeTabBar() {
 @Preview
 @Composable
 private fun PreviewHome() {
-    MaterialTheme {
+    AnimationCodelabTheme {
         Home()
     }
 }
