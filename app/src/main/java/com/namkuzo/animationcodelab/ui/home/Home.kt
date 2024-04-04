@@ -108,6 +108,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.namkuzo.animationcodelab.R
+import com.namkuzo.animationcodelab.ui.component.WeatherRow
 import com.namkuzo.animationcodelab.ui.theme.Amber600
 import com.namkuzo.animationcodelab.ui.theme.AnimationCodelabTheme
 import com.namkuzo.animationcodelab.ui.theme.Green
@@ -527,39 +528,6 @@ private fun HomeTab(
         )
         Spacer(modifier = Modifier.width(16.dp))
         Text(text = title)
-    }
-}
-
-/**
- * Shows the weather.
- *
- * @param onRefresh Called when the refresh icon button is clicked.
- */
-@Composable
-private fun WeatherRow(
-    onRefresh: () -> Unit,
-) {
-    Row(
-        modifier = Modifier
-            .heightIn(min = 64.dp)
-            .padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Box(
-            modifier = Modifier
-                .size(48.dp)
-                .clip(CircleShape)
-                .background(Amber600),
-        )
-        Spacer(modifier = Modifier.width(16.dp))
-        Text(text = stringResource(R.string.temperature), fontSize = 24.sp)
-        Spacer(modifier = Modifier.weight(1f))
-        IconButton(onClick = onRefresh) {
-            Icon(
-                imageVector = Icons.Default.Refresh,
-                contentDescription = stringResource(R.string.refresh),
-            )
-        }
     }
 }
 
