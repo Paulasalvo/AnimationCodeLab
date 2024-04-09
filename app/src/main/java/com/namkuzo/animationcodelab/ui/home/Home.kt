@@ -18,18 +18,16 @@ package com.namkuzo.animationcodelab.ui.home
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.animation.splineBasedDecay
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.awaitFirstDown
-import androidx.compose.foundation.gestures.horizontalDrag
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -60,14 +58,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -88,29 +83,21 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.input.pointer.positionChange
-import androidx.compose.ui.input.pointer.util.VelocityTracker
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.namkuzo.animationcodelab.R
 import com.namkuzo.animationcodelab.ui.component.TaskRow
 import com.namkuzo.animationcodelab.ui.component.WeatherRow
-import com.namkuzo.animationcodelab.ui.theme.Amber600
 import com.namkuzo.animationcodelab.ui.theme.AnimationCodelabTheme
 import com.namkuzo.animationcodelab.ui.theme.Green
 import com.namkuzo.animationcodelab.ui.theme.GreenLight
@@ -326,7 +313,7 @@ private fun EditMessage(shown: Boolean) {
         exit = slideOutVertically(
             // Exits by sliding up from offset 0 to -fullHeight.
             targetOffsetY = { fullHeight -> -fullHeight },
-            animationSpec = tween(durationMillis = 250, easing = FastOutLinearInEasing)
+            animationSpec = tween(durationMillis = 250, easing = FastOutLinearInEasing),
         ),
     ) {
         Surface(
@@ -399,7 +386,8 @@ private fun TopicRow(topic: String, expanded: Boolean, onClick: () -> Unit) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(16.dp)
+                .animateContentSize(),
         ) {
             Row {
                 Icon(
@@ -560,7 +548,6 @@ private fun LoadingRow() {
         )
     }
 }
-
 
 @Preview
 @Composable
