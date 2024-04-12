@@ -1,5 +1,6 @@
 package com.namkuzo.animationcodelab.ui.component
 
+import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.splineBasedDecay
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.horizontalDrag
@@ -16,6 +17,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.geometry.Offset
@@ -69,6 +71,7 @@ fun TaskRow(task: String, onRemove: () -> Unit) {
 private fun Modifier.swipeToDismiss(
     onDismissed: () -> Unit,
 ): Modifier = composed {
+    val offsetX = remember { Animatable(0f) }
     // TODO 6-1: Create an Animatable instance for the offset of the swiped element.
     pointerInput(Unit) {
         // Used to calculate a settling position of a fling animation.
@@ -80,10 +83,20 @@ private fun Modifier.swipeToDismiss(
                 val pointerId = awaitPointerEventScope { awaitFirstDown().id }
                 // TODO 6-2: Touch detected; the animation should be stopped.
                 // Prepare for drag events and record velocity of a fling.
+                offsetX.stop()
                 val velocityTracker = VelocityTracker()
                 // Wait for drag events.
                 awaitPointerEventScope {
                     horizontalDrag(pointerId) { change ->
+                        // Get the drag amount change to offset the item with
+                        val horizontalDragOffset = offsetX.value + change.positionChange().x
+                        // Need to call this in a launch block in order to run it separately outside of the awaitPointerEventScope
+                        launch {
+                            // Instantly set the Animable to the dragOffset to ensure its moving
+                            // as the user's finger moves
+                            offsetX.snapTo(horizontalDragOffset)
+                        }
+                        // Record the velocity of the drag.
                         // TODO 6-3: Apply the drag change to the Animatable offset.
                         // Record the velocity of the drag.
                         velocityTracker.addPosition(change.uptimeMillis, change.position)
