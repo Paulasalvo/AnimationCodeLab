@@ -171,7 +171,6 @@ fun Home() {
     val lazyListState = rememberLazyListState()
 
     // The background color. The value is changed by the current tab.
-    // TODO 1: Animate this color change.
     val backgroundColor by animateColorAsState(
         targetValue = if (tabPage == TabPage.Home) Seashell else GreenLight,
         label = "background color",
@@ -294,7 +293,6 @@ private fun HomeFloatingActionButton(
                 contentDescription = null,
             )
             // Toggle the visibility of the content with animation.
-            // TODO 2-1: Animate this visibility change.
             AnimatedVisibility(extended) {
                 Text(
                     text = stringResource(R.string.edit),
@@ -311,8 +309,6 @@ private fun HomeFloatingActionButton(
  */
 @Composable
 private fun EditMessage(shown: Boolean) {
-    // TODO 2-2: The message should slide down from the top on appearance and slide up on
-    //           disappearance.
     AnimatedVisibility(
         visible = shown,
         enter = slideInVertically(
@@ -392,7 +388,6 @@ private fun TopicRow(topic: String, expanded: Boolean, onClick: () -> Unit) {
         shadowElevation = 2.dp,
         onClick = onClick,
     ) {
-        // TODO 3: Animate the size change of the content.
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -480,7 +475,6 @@ private fun HomeTabIndicator(
     tabPositions: List<TabPosition>,
     tabPage: TabPage,
 ) {
-    // TODO 4: Animate these value changes.
     val transition = updateTransition(tabPage, label = "Tab indicator")
     val indicatorLeft by transition.animateDp(
         transitionSpec = {
@@ -568,7 +562,6 @@ private fun HomeTab(
  */
 @Composable
 private fun LoadingRow() {
-    // TODO 5: Animate this value between 0f and 1f, then back to 0f repeatedly.
     val infiniteTransition = rememberInfiniteTransition()
     val alpha by infiniteTransition.animateFloat(
         initialValue = 0f,
